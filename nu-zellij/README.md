@@ -16,3 +16,10 @@ in my `config.nu` i use the following keybinding to open Zellij inside a layout:
 
 > **Note**  
 > the module needs to be loaded with `use nu-zellij`
+
+in my `config.nu`, anywhere, it does not really matter because the keybinding will run
+once Nushell has started, i have
+```nu
+use /path/to/zellij-layouts/nu-zellij
+$env.ZELLIJ_HOME = /path/to/zellij-layouts
+```
