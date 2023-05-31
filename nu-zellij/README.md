@@ -1,5 +1,12 @@
 # A library to wrap the Zellij terminal multiplexer in Nushell.
 
+## :gear: installation
+for now, the only way to install this is manually
+- `git clone https://github.com/amtoine/zellij-layouts /path/to/zellij-layouts`
+- use the [`nu-git-manager` package](https://github.com/amtoine/nu-git-manager)
+
+## :exclamation: some (not so) advanced ideas
+
 in my `config.nu` i use the following keybinding to open Zellij inside a layout:
 ```nu
 {
