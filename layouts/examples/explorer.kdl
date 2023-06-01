@@ -1,3 +1,22 @@
+// ╭ Pane #1 ────────────────────────────────╮╭ exa --color always -l ─────────╮
+// │user@host:zellij$ _                      ││drwxr-xr-x    - assets          │
+// │                                         ││.rw-r--r-- 107k Cargo.lock      │
+// │                                         ││.rw-r--r-- 2.8k Cargo.toml      │
+// │                                         ││.rw-r--r--  63k CHANGELOG.md    │
+// │                                         ││                                │
+// │                                         │╰ [ EXIT CODE: 0 ] ──────────────╯
+// │                                         │╭ git log ───────────────────────╮
+// │                                         ││commit b8f0953 (HEAD -> main)   │
+// │                                         ││Author: Jae-Heon Ji             │
+// │                                         ││                                │
+// │                                         ││    docs(changelog): fix cwd... │
+// │                                         ││                                │
+// │                                         ││commit 3d7c54a                  │
+// │                                         ││Author: XiaoZhang               │
+// │                                         ││                                │
+// │                                         ││    fix: cwd of ... (#2455)     │
+// │                                         ││:                               │
+// ╰─────────────────────────────────────────╯╰────────────────────────────────╯
 layout {
     pane split_direction="vertical" {
         pane
