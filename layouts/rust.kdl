@@ -1,0 +1,45 @@
+// ╭ editor ──────────────────────────────────────────────╮╭ fmt ──────╮
+// │ 1  [package]                                         │╭ check ────╮
+// │  1 name = "foo"                                      │╭ test ─────╮
+// │  2 version = "0.1.0"                                 ││           │
+// │  3 edition = "2021"                                  ││           │
+// │  4                                                   ││           │
+// │  5 # See more keys and their definitions at https:/> ││           │
+// │  6                                                   ││           │
+// │  7 [dependencies]                                    ││ Waiting...│
+// │                                                      ││           │
+// │                                                      ││           │
+// │                                                      ││           │
+// │                                                      ││           │
+// │                                                      ││           │
+// │ NORMAL > Cargo.toml >           utf-8 < toml <   1:1 ││           │
+// ╰──────────────────────────────────────────────────────╯╰───────────╯
+layout {
+    pane split_direction="vertical" size="60%" {
+        pane name="editor" {
+            edit "Cargo.toml"
+            focus true
+        }
+
+        pane {
+            split_direction "horizontal"
+            size "20%"
+            stacked true
+            pane name="fmt" {
+                command "cargo"
+                args "fmt" "--all"
+                start_suspended true
+            }
+            pane name="check" {
+                command "cargo"
+                args "check" "--workspace"
+                start_suspended true
+            }
+            pane name="test" {
+                command "cargo"
+                args "test" "--workspace"
+                start_suspended true
+            }
+        }
+    }
+}
