@@ -1,3 +1,17 @@
+def zellij-layouts-path [] {
+    $env.ZELLIJ_HOME?
+    | default "~/.config/zellij"
+    | path join "layouts"
+    | path expand
+}
+
+def list-layouts [path: path] {
+    ls ($path | path join "**" "*.kdl")
+    | get name
+    | str replace $"($path)(char path_sep)" ""
+    | str replace '.kdl$' ""
+}
+
 # open a layout from a fuzzy list of all available layouts
 #
 # the layouts are listed recursively from `ZELLIJ_HOME/layouts/`.
@@ -9,20 +23,10 @@
 export def "layout open" [
     --default-shell: string = "nu"  # the default shell to run `zellij` in
 ] {
-    let zellij_layouts_path = (
-        $env.ZELLIJ_HOME?
-        | default "~/.config/zellij"
-        | path join "layouts"
-        | path expand
-    )
+    let zellij_layouts_path = (zellij-layouts-path)
 
     let layout = if ($zellij_layouts_path | path exists) {(
-        "default" | append (
-            ls ($zellij_layouts_path | path join "**" "*.kdl")
-            | get name
-            | str replace $"($zellij_layouts_path)(char path_sep)" ""
-            | str replace '.kdl$' ""
-        )
+        "default" | append (list-layouts $zellij_layouts_path)
         | input list --fuzzy
             $"Please (ansi green_bold)choose a layout(ansi reset) to launch ('zellij' | nu-highlight) in:"
     )} else { "default" }
