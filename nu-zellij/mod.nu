@@ -47,3 +47,37 @@ export def "layout open" [
 
     zellij --layout $layout options --default-shell $default_shell
 }
+
+
+export def "layout preview" [] {
+    let zellij_layouts_path = (zellij-layouts-path)
+
+    if not ($zellij_layouts_path | path exists) {
+        error make --unspanned {
+            msg: $"no layout found in ($zellij_layouts_path)"
+        }
+    }
+
+    let layout = (
+        list-layouts $zellij_layouts_path
+        | input list --fuzzy
+            $"Please (ansi green_bold)choose a layout(ansi reset) to preview:"
+    )
+
+    if ($layout | is-empty) {
+        error make --unspanned {
+            msg: "no layout selected"
+        }
+    }
+
+    {
+        parent: $zellij_layouts_path
+        stem: $layout
+        extension: "kdl"
+    } | path join
+    | open --raw
+    | lines
+    | find --regex '^//'
+    | str replace '^//\s*' ''
+    | str join "\n"
+}
