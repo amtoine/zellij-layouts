@@ -49,6 +49,7 @@ export def "layout open" [
 }
 
 
+# preview a layout from its inline documentation
 export def "layout preview" [] {
     let zellij_layouts_path = (zellij-layouts-path)
 
