@@ -6,7 +6,7 @@
 #
 # Environment:
 #     - ZELLIJ_HOME: the path to the `zellij` configuration folder (defaults to `~/.config/zellij/`)
-export def "open layout" [
+export def "layout open" [
     --default-shell: string = "nu"  # the default shell to run `zellij` in
 ] {
     let zellij_layouts_path = (
