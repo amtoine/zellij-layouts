@@ -82,3 +82,25 @@ export def "layout preview" [] {
     | str replace '^//\s*' ''
     | str join "\n"
 }
+
+# run Zellij inside a layout given from a `.zellij.nuon` file
+export def "layout run" [
+    --default-shell: string = "nu"  # the default shell to run `zellij` in
+] {
+    let metadata = (open .zellij.nuon)
+    for key in [$. $.session $.layout $.layout.path $.layout.name] {
+        if ($metadata | get -i $key) == null {
+            error make --unspanned {
+                msg: $"(ansi red_bold).zellij.nuon does not contain $.($key) or it is empty...(ansi reset)"
+            }
+        }
+    }
+
+    let layout = ({
+        parent: ($env.ZELLIJ_HOME | path join $metadata.layout.path)
+        stem: $metadata.layout.name
+        extension: kdl
+    } | path join)
+
+    zellij --layout $layout attach --create $metadata.session options --default-shell $default_shell
+}
