@@ -83,13 +83,26 @@ export def "layout preview" [] {
 
 # run Zellij inside a layout given from a `.zellij.nuon` file
 export def "layout run" [
+    config_file: path = ".zellij.nuon"
     --default-shell: string = "nu"  # the default shell to run `zellij` in
 ] {
-    let metadata = (open .zellij.nuon)
+    if not ($config_file | path exists) {
+        let span = (metadata $config_file | get span)
+        error make {
+            msg: $"(ansi red_bold)file_not_found(ansi reset)"
+            label: {
+                text: "no such file or directory"
+                start: $span.start
+                end: $span.end
+            }
+        }
+    }
+
+    let metadata = (open $config_file)
     for key in [$. $.session $.layout] {
         if ($metadata | get -i $key) == null {
             error make --unspanned {
-                msg: $"(ansi red_bold).zellij.nuon does not contain $.($key) or it is empty...(ansi reset)"
+                msg: $"(ansi red_bold)($config_file) does not contain $.($key) or it is empty...(ansi reset)"
             }
         }
     }
