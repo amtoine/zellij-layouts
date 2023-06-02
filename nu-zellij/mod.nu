@@ -1,8 +1,9 @@
+export-env {
+    $env.NU_ZELLIJ_LAYOUTS_HOME = ($env.CURRENT_FILE | path dirname | path join "layouts")
+}
+
 def zellij-layouts-path [] {
-    $env.ZELLIJ_HOME?
-    | default "~/.config/zellij"
-    | path join "layouts"
-    | path expand
+    $env.ZELLIJ_LAYOUTS_HOME? | default ($env.NU_ZELLIJ_LAYOUTS_HOME)
 }
 
 def list-layouts [path: path] {
@@ -14,12 +15,9 @@ def list-layouts [path: path] {
 
 # open a layout from a fuzzy list of all available layouts
 #
-# the layouts are listed recursively from `ZELLIJ_HOME/layouts/`.
+# the layouts are listed recursively.
 # the `default` layout is prepended to the list, to allow running `zellij` without any particular
 # layout by pressing enter!
-#
-# Environment:
-#     - ZELLIJ_HOME: the path to the `zellij` configuration folder (defaults to `~/.config/zellij/`)
 export def "layout open" [
     --default-shell: string = "nu"  # the default shell to run `zellij` in
 ] {
