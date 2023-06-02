@@ -86,7 +86,7 @@ export def "layout run" [
     --default-shell: string = "nu"  # the default shell to run `zellij` in
 ] {
     let metadata = (open .zellij.nuon)
-    for key in [$. $.session $.layout $.layout.path $.layout.name] {
+    for key in [$. $.session $.layout] {
         if ($metadata | get -i $key) == null {
             error make --unspanned {
                 msg: $"(ansi red_bold).zellij.nuon does not contain $.($key) or it is empty...(ansi reset)"
@@ -95,8 +95,8 @@ export def "layout run" [
     }
 
     let layout = ({
-        parent: ($env.ZELLIJ_HOME | path join $metadata.layout.path)
-        stem: $metadata.layout.name
+        parent: (zellij-layouts-path)
+        stem: $metadata.layout
         extension: kdl
     } | path join)
 
