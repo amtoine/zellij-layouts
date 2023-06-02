@@ -103,6 +103,18 @@ export def "layout run" [
     zellij --layout $layout attach --create $metadata.session options --default-shell $default_shell
 }
 
+export def "layout list" [] {
+    let zellij_layouts_path = (zellij-layouts-path)
+
+    if not ($zellij_layouts_path | path exists) {
+        error make --unspanned {
+            msg: $"no layout found in ($zellij_layouts_path)"
+        }
+    }
+
+    list-layouts $zellij_layouts_path
+}
+
 export def main [] {
     print -n (help nu-zellij)
 
