@@ -102,3 +102,10 @@ export def "layout run" [
 
     zellij --layout $layout attach --create $metadata.session options --default-shell $default_shell
 }
+
+export def main [] {
+    print -n (help nu-zellij)
+
+    print $"(ansi green)Environment(ansi reset):"
+    print $"    (ansi cyan)ZELLIJ_LAYOUTS_HOME(ansi reset) - the place where layouts are stored, can be nested \(defaults to (ansi {fg: default attr: di})($env.NU_ZELLIJ_LAYOUTS_HOME)(ansi reset)\)"
+}
