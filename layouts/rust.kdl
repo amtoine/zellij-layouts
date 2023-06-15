@@ -32,7 +32,7 @@ layout {
             }
             pane name="check" {
                 command "cargo"
-                args "check" "--workspace"
+                args "check" "--workspace" "--all-targets"
                 start_suspended true
             }
             pane name="test" {
