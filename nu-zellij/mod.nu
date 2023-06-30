@@ -21,10 +21,12 @@ def list-layouts [path: path] {
 export def "layout open" [
     --default-shell: string = "nu"  # the default shell to run `zellij` in
 ] {
+    let BUILTIN_LAYOUTS = ["DEFAULT" "COMPACT" "STRIDER"]
+
     let zellij_layouts_path = (zellij-layouts-path)
 
     let layout = if ($zellij_layouts_path | path exists) {(
-        "default" | append (list-layouts $zellij_layouts_path)
+        "AUTO" | append $BUILTIN_LAYOUTS | append (list-layouts $zellij_layouts_path)
         | input list --fuzzy
             $"Please (ansi green_bold)choose a layout(ansi reset) to launch ('zellij' | nu-highlight) in:"
     )} else { "default" }
@@ -35,15 +37,19 @@ export def "layout open" [
         }
     }
 
-    let layout = if $layout == "default" { $layout } else {
-        {
-            parent: $zellij_layouts_path
-            stem: $layout
-            extension: "kdl"
-        } | path join
-    }
+    if $layout == "AUTO" {
+        zellij options --default-shell $default_shell
+    } else {
+        let layout = if $layout in $BUILTIN_LAYOUTS { $layout | str downcase } else {
+            {
+                parent: $zellij_layouts_path
+                stem: $layout
+                extension: "kdl"
+            } | path join
+        }
 
-    zellij --layout $layout options --default-shell $default_shell
+        zellij --layout $layout options --default-shell $default_shell
+    }
 }
 
 
