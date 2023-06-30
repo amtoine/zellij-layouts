@@ -32,9 +32,7 @@ export def "layout open" [
     )} else { "default" }
 
     if ($layout | is-empty) {
-        error make --unspanned {
-            msg: "no layout selected"
-        }
+        return
     }
 
     if $layout == "AUTO" {
