@@ -32,5 +32,5 @@ use /path/to/zellij-layouts/nu-zellij
 
 and in my `env.nu`, i have
 ```nu
-let-env ZELLIJ_LAYOUTS_HOME = "/path/to/github.com/amtoine/zellij-layouts/layouts"
+$env.ZELLIJ_LAYOUTS_HOME = "/path/to/github.com/amtoine/zellij-layouts/layouts"
 ```
