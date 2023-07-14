@@ -26,7 +26,7 @@ export def "layout open" [
     let zellij_layouts_path = (zellij-layouts-path)
 
     let layout = if ($zellij_layouts_path | path exists) {(
-        "AUTO" | append $BUILTIN_LAYOUTS | append (list-layouts $zellij_layouts_path)
+        ["AUTO"] | append $BUILTIN_LAYOUTS | append (list-layouts $zellij_layouts_path)
         | input list --fuzzy
             $"Please (ansi green_bold)choose a layout(ansi reset) to launch ('zellij' | nu-highlight) in:"
     )} else { "default" }
