@@ -9,8 +9,8 @@ def zellij-layouts-path [] {
 def list-layouts [path: path] {
     ls ($path | path join "**" "*.kdl")
     | get name
-    | str replace $"($path)(char path_sep)" ""
-    | str replace '.kdl$' ""
+    | str replace --regex $"($path)(char path_sep)" ""
+    | str replace --regex '.kdl$' ""
 }
 
 # open a layout from a fuzzy list of all available layouts
@@ -81,7 +81,7 @@ export def "layout preview" [] {
     | open --raw
     | lines
     | find --regex '^//'
-    | str replace '^//\s*' ''
+    | str replace --regex '^//\s*' ''
     | str join "\n"
 }
 
