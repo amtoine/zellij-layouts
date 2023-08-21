@@ -4,4 +4,5 @@
     version: 0.1.0
     license: "https://github.com/amtoine/zellij-layouts/blob/main/nu-zellij/LICENSE"
     documentation: "https://github.com/amtoine/zellij-layouts/blob/main/nu-zellij/README.md"
+    type: "module"
 }
